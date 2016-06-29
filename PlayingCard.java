@@ -1,3 +1,11 @@
+/* 
+	Alan Tan
+	6.28.16
+
+	PlayingCard is able to be used for games like
+	Poker, Thirteen, etc.
+*/
+
 public class PlayingCard {
 	public enum Rank {
 		ACE, DEUCE, THREE, FOUR, FIVE, SIX, SEVEN,
