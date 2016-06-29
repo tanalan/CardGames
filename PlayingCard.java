@@ -21,11 +21,14 @@ public class PlayingCard {
 	private final Rank rank;
 	private final Suit suit;
 	private final Color color;
+	private final boolean highAce;
 
 	// Constructs a PlayingCard of the given rank and suit
 	// Color of the card is black if suit is clubs or diamonds
 	// Red otherwise
-	public PlayingCard(Rank rank, Suit suit) {
+	// Aces will have a value of 14 if highAce
+	// otherwise Aces will have 1
+	public PlayingCard(Rank rank, Suit suit, boolean highAce) {
 		this.rank = rank;
 		this.suit = suit;
 		if (this.suit == Rank.CLUBS || this.suit == Rank.SPADES) {
@@ -33,6 +36,7 @@ public class PlayingCard {
 		} else {
 			this.color = Color.Red;
 		}
+		this.highAce = highAce;
 	}
 
 	// Returns the rank of the card
@@ -60,6 +64,28 @@ public class PlayingCard {
 		}
 	}
 
+	// Returns the rank as an int
+	// -1 is returned if invalid rank
+	public String getRankValue() {
+		switch (this.rank) {
+		case ACE: if (highAce) return 14;
+								return 1;
+		case DEUCE: return 2;
+		case THREE: return 3;
+		case FOUR: return 4;
+		case FIVE: return 5;
+		case SIX: return 6;
+		case SEVEN: return 7;
+		case EIGHT: return 8;
+		case NINE: return 9;
+		case TEN: return 10;
+		case JACK: return 11;
+		case QUEEN: return 12;
+		case KING: return 13;
+		default: return -1;
+		}
+	}
+
 	// Returns the suit of the card
 	public Suit getSuit() {
 		return this.suit;
@@ -76,5 +102,12 @@ public class PlayingCard {
 		}
 	}
 
+	// Cards are compared by their ranks
+	// Returning -1 if this rank is less than
+	// 1 if greater than
+	// Otherwise 0
+	public int compareTo(PlayingCard other) {
+		return this.getRankValue() - other.getRankValue();
+	}
 	
 }
