@@ -2,11 +2,11 @@
 	Alan Tan
 	6.28.16
 
-	TestingCard is able to be used for games like
+	PlayingCard is able to be used for games like
 	Poker, Thirteen, etc.
 */
 
-public class TestingCard {
+public class PlayingCard {
 	public enum Rank {
 		ACE, DEUCE, THREE, FOUR, FIVE, SIX, SEVEN,
 		EIGHT, NINE, TEN, JACK, QUEEN, KING
@@ -23,12 +23,12 @@ public class TestingCard {
 	private final Color color;
 	private final boolean highAce;
 
-	// Constructs a TestingCard of the given rank and suit
+	// Constructs a PlayingCard of the given rank and suit
 	// Color of the card is black if suit is clubs or diamonds
 	// Red otherwise
 	// Aces will have a value of 14 if highAce
 	// otherwise Aces will have 1
-	public TestingCard(Rank rank, Suit suit, boolean highAce) {
+	public PlayingCard(Rank rank, Suit suit, boolean highAce) {
 		this.rank = rank;
 		this.suit = suit;
 		if (this.suit == Suit.CLUBS || this.suit == Suit.SPADES) {
@@ -106,7 +106,7 @@ public class TestingCard {
 	// Returning -1 if this rank is less than
 	// 1 if greater than
 	// Otherwise 0
-	public int compareTo(TestingCard other) {
+	public int compareTo(PlayingCard other) {
 		return this.getRankValue() - other.getRankValue();
 	}
 	
