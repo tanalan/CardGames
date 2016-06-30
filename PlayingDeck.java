@@ -57,6 +57,6 @@ public class PlayingDeck {
 		if (this.position == 0) 
 			throw new IllegalArgumentException("Empty deck, can't draw");
 		this.position--;
-		return this.deck[this.position + 1];
+		return this.deck[this.position - 1];
 	}
 }
