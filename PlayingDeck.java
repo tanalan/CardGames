@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /* 
 	Alan Tan
 	6.28.16
