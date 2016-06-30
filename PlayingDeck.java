@@ -4,7 +4,7 @@ import java.util.Random;
 	Alan Tan
 	6.28.16
 
-	Deck class used for storing 52 PlayingCards
+	Deck class used for storing PlayingCards
 */
 
 public class PlayingDeck {
@@ -12,6 +12,7 @@ public class PlayingDeck {
 	private int position;
 
 	public static final int NUM_OF_CARDS = 52; // Total cards to have
+											// Generally should be 52
 
 	// Constructs a PlayingDeck with each NUM_OF_CARDS
 	// PlayingCards  
@@ -51,7 +52,10 @@ public class PlayingDeck {
 
 	// Draws the card at the top of the deck and returns it
 	// Decreasing the overall amount of cards by one
+	// Throws an IllegalArgumentException if the deck is empty
 	public PlayingCard draw() {
+		if (this.position == 0) 
+			throw new IllegalArgumentException("Empty deck, can't draw");
 		this.position--;
 		return this.deck[this.position + 1];
 	}
