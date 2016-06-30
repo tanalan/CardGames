@@ -30,13 +30,13 @@ public class PlayingDeck {
 	public void shuffle() {
 		Random r = new Random();
 		// Using Fisher-Yates algorithm
-		for (int i = this.position; i >= 0; i--) {
+		for (int i = this.position - 1; i >= 0; i--) {
 			int next = r.nextInt(i + 1);
 			swap(i, next);
 		}
 	}
 
-	// Swaps the elements in the card
+	// Swaps the elements in the deck
 	// Element at first becomes at second
 	// Element at second is first
 	private void swap(int first, int second) {
