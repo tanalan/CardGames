@@ -97,6 +97,10 @@ public class PlayingCard {
 		}
 	}
 
+	public String toString() {
+		return getRankString() + " of " + getSuitString();
+	}
+
 	// Cards are compared by their ranks
 	// Returning -1 if this rank is less than
 	// 1 if greater than
