@@ -9,21 +9,33 @@ public class PlayingDeck {
 	private PlayingCard[] deck;
 
 	// Constructs a PlayingDeck with each of the 52
-	// PlayingCards
-	// If shuffled, the deck is randomly sorted
-	// Otherwise, will be sorted in groups of 13 cards
-	// From Ace to King
-	// First to last group: Clubs, Diamonds, Hearts, Spades  
-	public PlayingDeck(boolean shuffled) {
+	// PlayingCards  
+	public PlayingDeck() {
 		this.deck = new PlayingCard[52];
 		int i = 0;
 		for (PlayingCard.Suit suit : PlayingCard.Suit.values()) {
 			for (PlayingCard.Rank rank : PlayingCard.Rank.values()) {
-				this.deck[i] = new PlayingCard(rank, suit, false);
-				i++;
+				this.deck[i++] = new PlayingCard(rank, suit);
 			}
 		}
+	}
 
-		// if (shuffled) use shuffle method
+	// Shuffles the cards in the deck
+	public void shuffle() {
+		Random r = new Random();
+		// Using Fisher-Yates algorithm
+		for (int i = this.deck.length - 1; i >= 0; i--) {
+			int next = r.nextInt(52);
+			swap(i, next);
+		}
+	}
+
+	// Swaps the elements in the card
+	// Element at first becomes at second
+	// Element at second is first
+	private void swap(int first, int second) {
+		PlayingCard temp = this.deck[first];
+		this.deck[first] = this.deck[second];
+		this.deck[second] = temp;
 	}
 }
