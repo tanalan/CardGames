@@ -9,15 +9,18 @@ import java.util.Random;
 
 public class PlayingDeck {
 	private PlayingCard[] deck;
+	private int position;
 
-	// Constructs a PlayingDeck with each of the 52
+	public static final int NUM_OF_CARDS = 52; // Total cards to have
+
+	// Constructs a PlayingDeck with each NUM_OF_CARDS
 	// PlayingCards  
 	public PlayingDeck() {
-		this.deck = new PlayingCard[52];
-		int i = 0;
+		this.deck = new PlayingCard[NUM_OF_CARDS];
+		this.position = 0;
 		for (PlayingCard.Suit suit : PlayingCard.Suit.values()) {
 			for (PlayingCard.Rank rank : PlayingCard.Rank.values()) {
-				this.deck[i++] = new PlayingCard(rank, suit);
+				this.deck[position++] = new PlayingCard(rank, suit);
 			}
 		}
 	}
@@ -26,8 +29,8 @@ public class PlayingDeck {
 	public void shuffle() {
 		Random r = new Random();
 		// Using Fisher-Yates algorithm
-		for (int i = this.deck.length - 1; i >= 0; i--) {
-			int next = r.nextInt(52);
+		for (int i = this.position; i >= 0; i--) {
+			int next = r.nextInt(i + 1);
 			swap(i, next);
 		}
 	}
@@ -39,5 +42,17 @@ public class PlayingDeck {
 		PlayingCard temp = this.deck[first];
 		this.deck[first] = this.deck[second];
 		this.deck[second] = temp;
+	}
+
+	// Returns a String representing how many cards are in the deck
+	public String toString() {
+		return "Deck has " + this.position + " cards";
+	}
+
+	// Draws the card at the top of the deck and returns it
+	// Decreasing the overall amount of cards by one
+	public PlayingCard draw() {
+		this.position--;
+		return this.deck[this.position + 1];
 	}
 }
