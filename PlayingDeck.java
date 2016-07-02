@@ -59,4 +59,12 @@ public class PlayingDeck {
 		this.position--;
 		return this.deck[this.position - 1];
 	}
+
+	// Restarts the deck with NUM_OF_CARDS
+	// Essentially a "new" deck
+	// Deck is shuffled
+	public void restart() {
+		this.position = this.deck.length;
+		this.shuffle();
+	}
 }
