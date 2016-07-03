@@ -67,4 +67,17 @@ public class PlayingDeck {
 		this.position = this.deck.length;
 		this.shuffle();
 	}
+	
+	// Returns a String showing all the cards currently in the deck. 
+	public String showCards() {
+		String result = "";
+		if (this.position == 0) {
+			result = "Deck is empty";
+		} else {
+			for (int i = 0; i < this.position; i++) {
+				result += this.deck[i].toString() + "\n";
+			}
+		}
+		return result;
+	}	
 }
