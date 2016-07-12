@@ -7,6 +7,7 @@
 
 public class PlayPoker {
 	public static void main(String[] args) {
-		
+	    PlayingDeck deck = new PlayingDeck();
+	
 	}
 }
