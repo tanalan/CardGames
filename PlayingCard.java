@@ -8,8 +8,9 @@
 
 public class PlayingCard {
 	public enum Rank {
-		ACE, DEUCE, THREE, FOUR, FIVE, SIX, SEVEN,
-		EIGHT, NINE, TEN, JACK, QUEEN, KING
+		ACE("One"), DEUCE("Two"), THREE("Three"), FOUR("Four"), FIVE("Five"),
+        SIX("Six"), SEVEN("Seven"), EIGHT("Eight"), NINE("Nine"), TEN("Ten"),
+        JACK("Jack"), QUEEN("Queen"), KING("King")
 	}
 	public enum Suit {
 		CLUBS, DIAMONDS, HEARTS, SPADES
@@ -24,7 +25,7 @@ public class PlayingCard {
 
 	// Constructs a PlayingCard of the given rank and suit
 	// Color of the card is black if suit is clubs or diamonds
-	// Red otherwise
+	// Red otherwise yeahe
 	public PlayingCard(Rank rank, Suit suit) {
 		this.rank = rank;
 		this.suit = suit;
@@ -41,24 +42,8 @@ public class PlayingCard {
 	}
 
 	// Returns the rank as a String
-	public String getRankString() {
-		switch (this.rank) {
-		case ACE: return "Ace";
-		case DEUCE: return "Deuce";
-		case THREE: return "Three";
-		case FOUR: return "Four";
-		case FIVE: return "Five";
-		case SIX: return "Six";
-		case SEVEN: return "Seven";
-		case EIGHT: return "Eight";
-		case NINE: return "Nine";
-		case TEN: return "Ten";
-		case JACK: return "Jack";
-		case QUEEN: return "Queen";
-		case KING: return "King";
-		default: return "Invalid Rank";
-		}
-	}
+	public String getRankString() 
+	    return this.rank.name();
 
 	// Returns the rank as an int
 	// -1 is returned if invalid rank
@@ -69,7 +54,7 @@ public class PlayingCard {
 		case THREE: return 3;
 		case FOUR: return 4;
 		case FIVE: return 5;
-		case SIX: return 6;
+     	case SIX: return 6;
 		case SEVEN: return 7;
 		case EIGHT: return 8;
 		case NINE: return 9;
