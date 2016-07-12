@@ -5,22 +5,22 @@
  * such that it assumes high ranks have been checked
  * 
  * For example, a hand of 5, 5, 5, 5 (different suits) and 4 (hearts)
- * 				would qualify as a Pair although a Four of a Kind
- * 				is better suited
+ * 				can qualify as a Pair although a Four of a Kind
+ * 				is better suited and is the actual
  */
 
 public abstract class HandRank {
-	abstract boolean qualifies(PlayingCard[] hand);
+	public static boolean qualifies(PlayingCard[] hand) { return true; }
 }
 
 class HighCard extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+	public static boolean qualifies(PlayingCard[] hand) {
 		return hand.length != 0;
 	}
 }
 
 class Pair extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+	public static boolean qualifies(PlayingCard[] hand) {
 		for (int i = 0; i < hand.length - 1; i++) {
 			if (hand[i].getRankValue() == hand[i + 1].getRankValue()) {
 				return true;
@@ -31,7 +31,7 @@ class Pair extends HandRank {
 }
 
 class TwoPair extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+	public static boolean qualifies(PlayingCard[] hand) {
 		int numOfPairs = 0;
 		for (int i = 0; i < hand.length - 1; i++) {
 			if (hand[i].getRankValue() == hand[i + 1].getRankValue()) {
@@ -42,8 +42,8 @@ class TwoPair extends HandRank {
 	}
 }
 
-class Triple extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+class ThreeOfAKind extends HandRank {
+	public static boolean qualifies(PlayingCard[] hand) {
 		for (int i = 0; i < hand.length - 2; i++) {
 			if (hand[i].getRankValue() == hand[i + 1].getRankValue() &&
 					hand[i].getRankValue() == hand[i + 2].getRankValue()) {
@@ -55,7 +55,7 @@ class Triple extends HandRank {
 }
 
 class Straight extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+	public static boolean qualifies(PlayingCard[] hand) {
 		for (int i = 0; i < hand.length - 1; i++) {
 			if (hand[i].getRankValue() + 1 != hand[i + 1].getRankValue()) {
 				return false;
@@ -66,7 +66,7 @@ class Straight extends HandRank {
 }
 
 class Flush extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+	public static boolean qualifies(PlayingCard[] hand) {
 		for (int i = 1; i < hand.length; i++) {
 			if (hand[i].getSuit() != hand[0].getSuit()) {
 				return false;
@@ -77,7 +77,7 @@ class Flush extends HandRank {
 }
 
 class FullHouse extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+	public static boolean qualifies(PlayingCard[] hand) {
 		if (hand[0].getRank() == hand[1].getRank()) {
 			return (hand[2].getRank() == hand[3].getRank()) &&
 						hand[2].getRank() == hand[4].getRank();
@@ -91,7 +91,7 @@ class FullHouse extends HandRank {
 }
 
 class FourOfAKind extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+	public static boolean qualifies(PlayingCard[] hand) {
 		boolean firstFour = (hand[0].getRank() == hand[1].getRank()) &&
 							(hand[0].getRank() == hand[2].getRank()) &&
 							(hand[0].getRank() == hand[3].getRank());
@@ -107,38 +107,22 @@ class FourOfAKind extends HandRank {
 
 // Unsure how to utilize Straight and Flush classes
 // Static vs non static reference
-class StraightFlush extends Straight {
-	public boolean qualifies(PlayingCard[] hand) {
-		// return Straight.qualifies(hand) && Flush.qualifies(hand);
-		boolean isStraight = true;
-		for (int i = 0; i < hand.length - 1; i++) {
-			if (hand[i].getRankValue() + 1 != hand[i + 1].getRankValue()) {
-				isStraight = false;
-			}
-		}
-		boolean isFlush = true;
-		for (int i = 1; i < hand.length; i++) {
-			if (hand[i].getSuit() != hand[0].getSuit()) {
-				isFlush = false;
-			}
-		}
-		return isStraight && isFlush;
+class StraightFlush extends HandRank {
+	public static boolean qualifies(PlayingCard[] hand) {
+		return Straight.qualifies(hand) && Flush.qualifies(hand);
 	}
 }
 
 class RoyalFlush extends HandRank {
-	public boolean qualifies(PlayingCard[] hand) {
+	public static boolean qualifies(PlayingCard[] hand) {
 		if (hand[0].getRankValue() != 1) {
 			return false;
 		}
-		String aceSuit = hand[0].getSuitString();
 		return hand[1].getRankValue() == 10 &&
 				hand[2].getRankValue() == 11 &&
 				hand[3].getRankValue() == 12 &&
 				hand[4].getRankValue() == 13 &&
-				hand[1].getSuitString().equals(aceSuit) &&
-				hand[2].getSuitString().equals(aceSuit) &&
-				hand[3].getSuitString().equals(aceSuit) &&
-				hand[4].getSuitString().equals(aceSuit);
+				Flush.qualifies(hand);
 	}
 }
+
