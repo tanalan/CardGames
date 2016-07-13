@@ -10,17 +10,17 @@
  */
 
 public abstract class HandRank {
-	public static boolean qualifies(PlayingCard[] hand) { return true; }
+	public abstract boolean qualifies(PlayingCard[] hand);
 }
 
 class HighCard extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		return hand.length != 0;
 	}
 }
 
 class Pair extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		for (int i = 0; i < hand.length - 1; i++) {
 			if (hand[i].getRankValue() == hand[i + 1].getRankValue()) {
 				return true;
@@ -31,7 +31,7 @@ class Pair extends HandRank {
 }
 
 class TwoPair extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		int numOfPairs = 0;
 		for (int i = 0; i < hand.length - 1; i++) {
 			if (hand[i].getRankValue() == hand[i + 1].getRankValue()) {
@@ -43,7 +43,7 @@ class TwoPair extends HandRank {
 }
 
 class ThreeOfAKind extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		for (int i = 0; i < hand.length - 2; i++) {
 			if (hand[i].getRankValue() == hand[i + 1].getRankValue() &&
 					hand[i].getRankValue() == hand[i + 2].getRankValue()) {
@@ -55,7 +55,7 @@ class ThreeOfAKind extends HandRank {
 }
 
 class Straight extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		for (int i = 0; i < hand.length - 1; i++) {
 			if (hand[i].getRankValue() + 1 != hand[i + 1].getRankValue()) {
 				return false;
@@ -66,7 +66,7 @@ class Straight extends HandRank {
 }
 
 class Flush extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		for (int i = 1; i < hand.length; i++) {
 			if (hand[i].getSuit() != hand[0].getSuit()) {
 				return false;
@@ -77,7 +77,7 @@ class Flush extends HandRank {
 }
 
 class FullHouse extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		if (hand[0].getRank() == hand[1].getRank()) {
 			return (hand[2].getRank() == hand[3].getRank()) &&
 						hand[2].getRank() == hand[4].getRank();
@@ -91,7 +91,7 @@ class FullHouse extends HandRank {
 }
 
 class FourOfAKind extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		boolean firstFour = (hand[0].getRank() == hand[1].getRank()) &&
 							(hand[0].getRank() == hand[2].getRank()) &&
 							(hand[0].getRank() == hand[3].getRank());
@@ -108,13 +108,13 @@ class FourOfAKind extends HandRank {
 // Unsure how to utilize Straight and Flush classes
 // Static vs non static reference
 class StraightFlush extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
-		return Straight.qualifies(hand) && Flush.qualifies(hand);
+	public boolean qualifies(PlayingCard[] hand) {
+		return (new Straight()).qualifies(hand) && (new Flush()).qualifies(hand);
 	}
 }
 
 class RoyalFlush extends HandRank {
-	public static boolean qualifies(PlayingCard[] hand) {
+	public boolean qualifies(PlayingCard[] hand) {
 		if (hand[0].getRankValue() != 1) {
 			return false;
 		}
@@ -122,7 +122,7 @@ class RoyalFlush extends HandRank {
 				hand[2].getRankValue() == 11 &&
 				hand[3].getRankValue() == 12 &&
 				hand[4].getRankValue() == 13 &&
-				Flush.qualifies(hand);
+				(new Flush()).qualifies(hand);
 	}
 }
 
