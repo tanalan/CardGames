@@ -5,11 +5,32 @@
 	This class evaluates a 5 card poker hand
 */
 
-public class HandEvaluator {
-	public PlayingCard[] hand;
+import java.util.*;
 
-	public static HandType evaluate(PlayingCard[] hand) {
-		this.hand = new PlayingCard[hand.length];
+public class HandEvaluator {
+	
+	// Evaluates the given hand and returns the String representing
+	// the best hand
+	// Null is returned if the inputHand is invalid 
+	// (not sorted and/or not 5 unique cards)
+	public static String evaluate(PlayingCard[] inputHand) {
+		List<HandRank> allHandTypes = new ArrayList<HandRank>();
+		allHandTypes.add(new RoyalFlush());
+		allHandTypes.add(new StraightFlush());
+		allHandTypes.add(new FullHouse());
+		allHandTypes.add(new Flush());
+		allHandTypes.add(new Straight());
+		allHandTypes.add(new ThreeOfAKind());
+		allHandTypes.add(new TwoPair());
+		allHandTypes.add(new Pair());
+		allHandTypes.add(new HighCard());
+		for (int i = 0; i < allHandTypes.size(); i++) {
+			HandRank current = allHandTypes.get(i);
+			if (current.qualifies(inputHand)) {
+				return "" + current;
+			}
+		}
+		return null;
 		
 	}
 }
